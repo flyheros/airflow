@@ -14,7 +14,7 @@ with DAG(
     task_regist = PythonOperator(
         task_id = 'task_regist',
         python_callable= regist2,
-        op_args= ['jalim', 'female', 'kr', 'seoul']
+        op_args= ['jalim', 'female', 'kr', 'seoul'],
         kwargs={'email':'jalim@naver.com','address':'서울시 서초구 태봉로2길길'}
 
     )
