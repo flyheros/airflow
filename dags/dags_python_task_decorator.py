@@ -2,7 +2,6 @@ from airflow import DAG
 import datetime
 import pendulum
 from airflow.decorators  import task
-import random
 
 with DAG(
     dag_id="dags_python_task_decorator",
@@ -13,8 +12,9 @@ with DAG(
     tags=["example", "example2"]
     # params={"example_key": "example_value"},  # task 에 공통적으로 넘겨줄 변수 
 ) as dag:
+
     @task(task_id="python_task_1")
     def print_context(some_input):
         print(some_input)
 
-    python_task_1 =  print_context('task_decorator 실행')
+    python_task_1=print_context('task_decorator 실행')
