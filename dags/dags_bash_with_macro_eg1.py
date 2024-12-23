@@ -17,8 +17,8 @@ with DAG(
     # [START howto_operator_bash]
     bash_t1 = BashOperator(
         task_id="bash_t1",  # 화면에 나타나는 것것
-        env= {'START_DATE': '{{data_interval_start.in_timezone("Asia/Seoul) | ds}}',  # 전월 말일 (스케줄이 매월 말일이므로)
-              'END_DATE':'{{(data_interval_end.in_timezone("Asia/Seoul)  + relativedelta.relativedelta(days=-1)) | ds }}'}, # 1일전 
+        env= {'START_DATE': '{{data_interval_start.in_timezone("Asia/Seoul") | ds}}',  # 전월 말일 (스케줄이 매월 말일이므로)
+              'END_DATE':'{{(data_interval_end.in_timezone("Asia/Seoul")  + relativedelta.relativedelta(days=-1)) | ds }}'}, # 1일전 
 
         bash_command='echo "START_DATE: $START_DATE" && echo "END_DATE : $END_DATE"',
     )
