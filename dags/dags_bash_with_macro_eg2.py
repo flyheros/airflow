@@ -5,7 +5,7 @@ from airflow.operators.bash import BashOperator
 
 with DAG(
     dag_id="dags_bash_with_macro_eg2",
-    schedule="10 0 L * 6#2", # 매월 2째주 토요일 
+    schedule="10 0 * * 6#2", # 매월 2째주 토요일 
     start_date=pendulum.datetime(2024, 12, 20, tz="Asia/Seoul"),
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
     dagrun_timeout=datetime.timedelta(minutes=60), # timeout 설정정
