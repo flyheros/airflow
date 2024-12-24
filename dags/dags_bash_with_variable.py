@@ -13,15 +13,20 @@ with DAG(
     # params={"example_key": "example_value"},  # task 에 공통적으로 넘겨줄 변수 
 ) as dag:
 
-    var_value = Variable.get("sample_key")
-    bash_var_1=BashOperator(
-        task_id="bash_var_1",
-        bash_command=f"echo variable: {var_value}"
+    bash_t1 = BashOperator(
+        task_id="bash_t1",
+        bash_command= 'echo "data_interval_end: {{data_interval_end}}"'
+
     )
 
-    bash_var_2 = BashOperator(
-        task_id="bash_var_2",
-        bash_command = f"echo variable : {{var.value.sample_key}}"
+    
+    bash_t2 = BashOperator(
+        task_id="bash_t2",
+        env = {
+                'start_date' :'{{data_interval_start | ds}}',
+                'end_date' :'{{data_interval_end | ds}}'
+        },
+        bash_command= 'echo $start_date && echo $end_date'
+               
     )
-
-    bash_var_1 >> bash_var_2
+    bash_t1 >> bash_t2
