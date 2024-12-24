@@ -25,7 +25,6 @@ with DAG(
         print('함수에서 나온값', status)
 
 
-    result= x_com_push_result()
-    xcom_pull_2(result)
-    result >> xcom_pull_1()
-    
+    python_x_com_push_result= x_com_push_result()
+    xcom_pull_2(python_x_com_push_result)
+    python_x_com_push_result >> xcom_pull_1()
