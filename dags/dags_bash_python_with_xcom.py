@@ -9,7 +9,7 @@ with DAG(
     start_date=pendulum.datetime(2024, 12, 20, tz="Asia/Seoul"),
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
     dagrun_timeout=datetime.timedelta(minutes=60), # timeout 설정정
-    tags=["macro.dateutil.relativedelta"]
+    tags=["xcom_pull", "xcom_push"]
     # params={"example_key": "example_value"},  # task 에 공통적으로 넘겨줄 변수 
 ) as dag:
     @task(task_id='python_push')
@@ -23,7 +23,7 @@ with DAG(
             'Status': '{{ t1.xcom_pull(task_id="python_push")["status"]}}',
             'Data': '{{ t1.xcom_pull(task_id="python_push")["data"]}}',
             'Options_cnt': '{{ t1.xcom_pull(task_id="python_push")["options_cnt"]}}'
-        }
+        },
         bash_command =  'echo $Status && echo $Data && echo $Options_cnt'
     )
 
