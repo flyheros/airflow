@@ -9,23 +9,21 @@ with DAG(
     schedule="10 0 * * *",
     start_date=pendulum.datetime(2024, 12, 21, tz="Asia/Seoul"),
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
-    dagrun_timeout=datetime.timedelta(minutes=60), # timeout 설정정
+    dagrun_timeout=datetime.timedelta(minutes=60) # timeout 설정정
     # tags=["example", "example2"]
     # params={"example_key": "example_value"},  # task 에 공통적으로 넘겨줄 변수 
 ) as dag:
     
 
     #통째로 templates_dicts가 kwargs 로 들어감
-    @task(
-        task_id='task_using_macros',
+    @task(task_id='task_using_macros',
         templates_dict={
-        'start_date':'{{ (data_interval_end.in_timezone('Asia/Seoul') + macros.dateutil.relativedelta.relativedelta(months=-1, day=1)) | ds }}',
-        'end_date' : '{{ (data_interval_end.in_timezone('Asia/Seoul').replace(day=1) + macros.dateutil.relativedelta.relativedelta(days=-1) | ds}}'
-
+                            'start_date':'{{ (data_interval_end.in_timezone("Asia/Seoul") + macros.dateutil.relativedelta.relativedelta(months=-1, day=1)) | ds }}',
+                            'end_date' : '{{ (data_interval_end.in_timezone("Asia/Seoul").replace(day=1) + macros.dateutil.relativedelta.relativedelta(days=-1)) | ds }}'
         }
-    )
+        )
     def get_datetime_macro(**kwargs):
-        templates_dict=kwargs.get('temples_dict') or {}
+        templates_dict=kwargs.get('templates_dict') or {}
         start_date = templates_dict.get('start_date')  or 'start_date 없음'
         end_date = templates_dict.get('end_date')  or 'end_date 없음'
         print(start_date)
