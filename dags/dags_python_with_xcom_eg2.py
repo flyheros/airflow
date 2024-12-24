@@ -20,4 +20,12 @@ with DAG(
         value1=ti.xcom_pull(task_ids='python_xcom_push_by_return')
         print('xcom_pull 메서드로 직접 찾은 리턴값 :' +value1)
 
-    x_com_push_result() >> xcom_pull_1()
+    @task(task_id="python_xcom_pull_2")
+    def xcom_pull_2(status, **kwargs):
+        print('함수에서 나온값', status)
+
+
+    result= x_com_push_result()
+    xcom_pull_2(result)
+    result >> xcom_pull_1()
+    
