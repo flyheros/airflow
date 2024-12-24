@@ -12,6 +12,7 @@ with DAG(
     tags=["xcom_pull", "xcom_push"]
     # params={"example_key": "example_value"},  # task 에 공통적으로 넘겨줄 변수 
 ) as dag:
+
     @task(task_id='python_push')
     def python_push_xcom():
         result_dict = {'status':'Excellent', 'data':[1,2,3], 'options_cnt':100}
@@ -32,7 +33,7 @@ with DAG(
 
     bash_push = BashOperator(
         task_id='bash_push',
-        bash_command = 'echo PUSH_START && {{ ti.xcom_push(key="bash_pused", value=200)}}  && echo PUSH_COMPLETE'
+        bash_command = 'echo PUSH_START {{ ti.xcom_push(key="bash_pused", value=200)}}  && echo PUSH_COMPLETE'
     )
     @task(task_id='python_pull')
     def python_pull_xcom(**kwargs):
