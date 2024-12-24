@@ -2,6 +2,7 @@ from airflow import DAG
 import datetime
 import pendulum
 from airflow.operators.bash import BashOperator
+from airflow.models import Variable
 
 with DAG(
     dag_id="dags_bash_with_variable",
@@ -12,7 +13,7 @@ with DAG(
     # params={"example_key": "example_value"},  # task 에 공통적으로 넘겨줄 변수 
 ) as dag:
 
-    var value = Variable.get("sample_key")
+    var_value = Variable.get("sample_key")
     bash_var_1=BashOperator(
         task_id="bash_var_1",
         bash_command=f"echo variable: {var_value}"
@@ -20,5 +21,5 @@ with DAG(
 
     bash_var_2 = BashOperator(
         task_id="bash_var_2",
-        bash_command = f"echo variable : {var.value.sample_key}"
+        bash_command = f"echo variable : {{var.value.sample_key}}"
     )
