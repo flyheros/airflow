@@ -41,4 +41,4 @@ with DAG(
         print('명시적', value2_2)
 
     
-    x_com_push_1 >> x_com_push_2 >> xcom_pull_1
+    x_com_push_1() >> x_com_push_2() >> xcom_pull_1()
