@@ -6,7 +6,7 @@ from airflow.task import task
 from airflow.exceptions import AirflowException
 
 with DAG(
-    dag_id="dags_python_with_op_kwargs",
+    dag_id="dags_python_with_trigger_rule_eg1",
     schedule= None,
     start_date=pendulum.datetime(2024, 12, 21, tz="Asia/Seoul"),
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
