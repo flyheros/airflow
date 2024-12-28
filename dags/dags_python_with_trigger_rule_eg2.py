@@ -57,7 +57,7 @@ with DAG(
     task_d = BashOperator(
         task_id='task_d',
         bash_command="echo task1",
-        trigger_rule="one_skipped"
+        trigger_rule="none_skipped"
     )
 
     python_branch_task >> [task_a, task_b, task_c] >> task_d
