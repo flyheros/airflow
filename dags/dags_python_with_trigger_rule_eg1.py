@@ -28,7 +28,8 @@ with DAG(
 
 
 
-    @task (task_id='task_4', trigger_rule="all_done")
+    # @task (task_id='task_4', trigger_rule="all_done")
+    @task (task_id='task_4', trigger_rule="all_success")
     def task_4():
        print('task_4 정상 처리 ')
     
