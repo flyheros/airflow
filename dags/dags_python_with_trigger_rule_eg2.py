@@ -1,8 +1,8 @@
 from airflow import DAG
 import datetime
 import pendulum
-from airflow.operators.python import PythonOperator
-from airflow.operators.branch import BranchPythonOperator
+from airflow.operators.python import BranchPythonOperator, PythonOperator
+from airflow.operators.bash import BashOperator
 from common.common_func import regist2
 
 with DAG(
@@ -52,4 +52,12 @@ with DAG(
         op_kwargs={'selected':'C'}
     )
 
-    python_branch_task >> [task_a, task_b, task_c]
+
+    
+    task_d = BashOperator(
+        task_id='task_d',
+        bash_command="echo task1",
+        trigger_rule="one_skipped"
+    )
+
+    python_branch_task >> [task_a, task_b, task_c] >> task_d
