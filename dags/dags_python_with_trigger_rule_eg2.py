@@ -18,8 +18,6 @@ with DAG(
         selected_item = random.choice(item_list)
         if selected_item=='A':
             return 'task_a'  ## 다음 실행될 task_id를 적어준다
-        elif selected_item in ['B', 'C']:
-            return ['task_b', 'task_c']  ## 다음 실행될 task_id를 적어준다
         
     python_branch_task = BranchPythonOperator(
         task_id='python_branch_task',
