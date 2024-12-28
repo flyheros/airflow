@@ -4,6 +4,7 @@ import pendulum
 from airflow.decorators import task
 from airflow.operators.python import PythonOperator
 
+
 with DAG(
     dag_id="dags_branch_python_decorator",
     schedule="30 20 * * *",
