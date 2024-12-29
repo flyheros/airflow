@@ -28,9 +28,9 @@ with DAG(
 
         import json
         from pprint import pprint
-        pprint.pprint(result)
-        pprint.pprint('------------------------------')
-        pprint.pprint(json.loads(result))
+        pprint(result)
+        pprint('------------------------------')
+        pprint(json.loads(result))
 
 
     tb_cycle_station_info >> pprint_task()
