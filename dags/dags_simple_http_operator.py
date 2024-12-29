@@ -26,7 +26,8 @@ with DAG(
         ti= kwargs['ti']
         result = ti.xcom_pull(task_ids='tb_cycle_station_info')
 
-        import pprint
+        import json
+        from pprint import pprint
         pprint.pprint(result)
         pprint.pprint('------------------------------')
         pprint.pprint(json.loads(result))
