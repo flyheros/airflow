@@ -11,14 +11,19 @@ with DAG(
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
 ) as dag:
     
-    endpoint="{{var.value.apikey_openapi_seoul_go_kr}}/json/LampScpgmtb/1/5/"
     tb_cycle_station_info = SimpleHttpOperator(
         task_id='tb_cycle_station_info',
         http_conn_id='openapi.seoul.go.kr.http',
-        endpoint=endpoint,
+        endpoint="{{var.value.apikey_openapi_seoul_go_kr}}/json/LampScpgmtb/1/5/",
         method='GET',
         headers  = {"Content-Type": "application/json"},
         xcom_push=True
+    )
+
+
+    # 로그 출력
+    tb_cycle_station_info.log.info(
+        "Rendered Endpoint: {{ var.value.apikey_openapi_seoul_go_kr }}/json/LampScpgmtb/1/5/"
     )
 
     @task(task_id='pprint_task')
@@ -26,7 +31,6 @@ with DAG(
         ti= kwargs['ti']
         result = ti.xcom_pull(task_ids='tb_cycle_station_info')
         print('------------------------------')
-        print(endpoint)
 
         import json
         from pprint import pprint
