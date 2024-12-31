@@ -2,6 +2,7 @@ from airflow import DAG
 import datetime
 import pendulum
 from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.operators.python import PythonOperator
 from airflow.decorators import task 
 
 with DAG(
@@ -22,10 +23,12 @@ with DAG(
 
 
 
+    @task(task_id='print_xcom_value')
     def print_xcom_value(**kwargs):
         ti = kwargs['ti']
         endpoint_value = ti.xcom_pull(task_ids='tb_cycle_station_info')
         print(f"Endpoint from XCom: {endpoint_value}")
+
 
 
     # 로그 출력
@@ -45,5 +48,5 @@ with DAG(
 
 # openapi.seoul.go.kr:8088/6f54667168666c793339467774486b/json/LampScpgmtb/1/5/
 
-    tb_cycle_station_info >> print_xcom_value >> pprint_task()
+    tb_cycle_station_info >> print_xcom_value() >> pprint_task()
         
