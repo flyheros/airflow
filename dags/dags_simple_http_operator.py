@@ -16,8 +16,7 @@ with DAG(
         http_conn_id='openapi.seoul.go.kr.http',
         endpoint="{{var.value.apikey_openapi_seoul_go_kr}}/json/LampScpgmtb/1/5/",
         method='GET',
-        headers  = {"Content-Type": "application/json"},
-        xcom_push=True
+        headers  = {"Content-Type": "application/json"}
     )
 
 
