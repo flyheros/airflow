@@ -16,8 +16,16 @@ with DAG(
         http_conn_id='openapi.seoul.go.kr.http',
         endpoint="{{var.value.apikey_openapi_seoul_go_kr}}/json/LampScpgmtb/1/5/",
         method='GET',
-        headers  = {"Content-Type": "application/json"}
+        headers  = {"Content-Type": "application/json"},
+        xcom_push=True
     )
+
+
+
+    def print_xcom_value(**kwargs):
+        ti = kwargs['ti']
+        endpoint_value = ti.xcom_pull(task_ids='tb_cycle_station_info')
+        print(f"Endpoint from XCom: {endpoint_value}")
 
 
     # 로그 출력
@@ -37,5 +45,5 @@ with DAG(
 
 # openapi.seoul.go.kr:8088/6f54667168666c793339467774486b/json/LampScpgmtb/1/5/
 
-    tb_cycle_station_info >> pprint_task()
+    tb_cycle_station_info >> print_xcom_value >> pprint_task()
         
