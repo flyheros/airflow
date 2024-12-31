@@ -19,7 +19,6 @@ with DAG(
                     "charset":"utf-8",
                     "Accept" : "*/*"
                    }
-        return endpoint
     )
 
     @task(task_id='pprint_task')
