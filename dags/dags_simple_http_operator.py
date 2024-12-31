@@ -22,11 +22,11 @@ with DAG(
     def pprint_task(**kwargs):
         ti= kwargs['ti']
         result = ti.xcom_pull(task_ids='tb_cycle_station_info')
+        pprint('------------------------------')
 
         import json
         from pprint import pprint
         pprint(result)
-        pprint('------------------------------')
         pprint(json.loads(result))
 
 
