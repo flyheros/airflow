@@ -50,6 +50,8 @@ with DAG(
         ti= kwargs['ti']
         result = ti.xcom_pull(task_ids='tb_cycle_station_info')
         print('------------------------------')
+        print("{{ var.value.apikey_openapi_seoul_go_kr | default('') }}")
+        print('------------------------------')
 
         import json
         from pprint import pprint
