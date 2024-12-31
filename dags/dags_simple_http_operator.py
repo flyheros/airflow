@@ -5,6 +5,7 @@ from airflow.providers.http.operators.http import SimpleHttpOperator
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
 from airflow.decorators import task 
+from airflow.models import Variable
 
 with DAG(
     dag_id="dags_simple_http_operator",
@@ -45,12 +46,15 @@ with DAG(
         "Rendered Endpoint: {{ var.value.apikey_openapi_seoul_go_kr }}/json/LampScpgmtb/1/5/"
     )
 
+    var_value = Variable.get("apikey_openapi_seoul_go_kr", default_var="")
+
     @task(task_id='pprint_task')
     def pprint_task(**kwargs):
         ti= kwargs['ti']
         result = ti.xcom_pull(task_ids='tb_cycle_station_info')
         print('------------------------------')
         print("{{ var.value.apikey_openapi_seoul_go_kr | default('') }}")
+        print(f"{ var_value }")
         print('------------------------------')
 
         import json
