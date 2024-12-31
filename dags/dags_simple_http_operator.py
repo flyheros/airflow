@@ -12,7 +12,7 @@ with DAG(
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
 ) as dag:
     
-    endpoint= f"{{var.value.apikey_openapi_seoul_go_kr}}/json/LampScpgmtb/1/5/"
+    
     
     tb_cycle_station_info = SimpleHttpOperator(
         task_id='tb_cycle_station_info',
@@ -28,6 +28,7 @@ with DAG(
     def print_xcom_value(**kwargs):
         ti = kwargs['ti']
         endpoint_value = ti.xcom_pull(task_ids='tb_cycle_station_info')
+        endpoint= "{{var.value.apikey_openapi_seoul_go_kr}}/json/LampScpgmtb/1/5/"
         print(f"Endpoint from XCom: {endpoint}")
 
 
