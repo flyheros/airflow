@@ -10,12 +10,20 @@ with DAG(
     start_date=pendulum.datetime(2024, 12, 20, tz="Asia/Seoul"),
     catchup=False, # 누락된 일자도 모두 돌릴래? 단, 누락된 일자는 한꺼번에 실행되. 
 ) as dag:
+    
+    def handle_response(response):
+        import json
+        response_json = response.json()
+        return response_json
+    
+
     tb_cycle_station_info = SimpleHttpOperator(
         task_id='tb_cycle_station_info',
         http_conn_id='openapi.seoul.go.kr.http',
         endpoint="{{var.value.apikey_openapi_seoul_go_kr}}/json/TrafficInfo/1/5/",
         method='GET',
-        headers  = {"Content-Type": "application/json"}
+        headers  = {"Content-Type": "application/json"},
+        xcom_push=True
     )
 
     @task(task_id='pprint_task')
