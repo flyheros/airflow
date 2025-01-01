@@ -4,7 +4,7 @@ import pendulum
 
 
 with DAG (
-    dag_id="ApiToCsvOperator_Seoul",
+    dag_id="dags_api_seoul_corona",
     schedule="0 7 * * * ",
     start_date=pendulum.datetime(2025, 1, 1, tz="Asia/Seoul"),
     catchup=False
