@@ -10,6 +10,9 @@ with DAG (
     catchup=False
 ) as dag:
 
+
+
+
     tb_corona19_count_status=ApiToCsvOperator_Seoul(
         task_id="tb_corona19_count_status",
         dataset_nm="TbCorona19CountStatus",
