@@ -8,13 +8,13 @@ import requests
 class ApiToCsvOperator_Seoul(BaseOperator):
     template_fields = ['path', 'file_name']
     
-    def __init__(self, dataset_nm, path, file_name, base_dt=None, **kwargs):
+    def __init__(self, dataset_nm, path, file_name, apikey, base_dt=None,  **kwargs):
         super().__init__(**kwargs)
         self.http_conn_id = "openapi.seoul.go.kr.http"
         self.dataset_nm = dataset_nm
         self.path = path
         self.file_name = file_name
-        self.endpoint = '{{ var.value.apikey_openapi_seoul_go_kr }}/json/' + dataset_nm
+        self.endpoint = self.apikey + '/json/' + dataset_nm
         self.base_dt = base_dt
         self.base_url = f"http://{self.endpoint}"
         print(self.endpoint)
