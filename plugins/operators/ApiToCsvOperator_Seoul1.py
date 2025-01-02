@@ -14,7 +14,7 @@ class ApiToCsvOperator_Seoul(BaseOperator):
         self.dataset_nm = dataset_nm
         self.path = path
         self.file_name = file_name
-        self.endpoint = self.apikey + '/json/' + dataset_nm
+        self.endpoint = apikey + '/json/' + dataset_nm
         self.base_dt = base_dt
         self.base_url = f"http://{self.endpoint}"
         print(self.endpoint)
