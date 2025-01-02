@@ -14,7 +14,7 @@ class ApiToCsvOperator_Seoul(BaseOperator):
         self.dataset_nm = dataset_nm
         self.path = path
         self.file_name = file_name
-        self.endpoint = f"{{ var.value.apikey_openapi_seoul_go_kr }}/json/{dataset_nm}"
+        self.endpoint = "{{ var.value.apikey_openapi_seoul_go_kr }}/json/" + dataset_nm
         self.base_dt = base_dt
         self.base_url = f"http://{self.endpoint}"
 
