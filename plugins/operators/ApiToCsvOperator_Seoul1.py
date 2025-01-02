@@ -23,7 +23,6 @@ class ApiToCsvOperator_Seoul(BaseOperator):
         import os
 
         self.log.info(f"self.endpoint:{self.endpoint}")
-        self.log.info({{var.value.apikey_openapi_seoul_go_kr}})
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f"http://{connection.host}:{connection.port}/{self.endpoint}"
 
