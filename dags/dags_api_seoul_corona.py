@@ -1,4 +1,4 @@
-from operators.ApiToCsvOperator_Seoul import ApiToCsvOperator_Seoul
+from operators.ApiToCsvOperator_Seoul1 import ApiToCsvOperator_Seoul
 from airflow import DAG
 import pendulum
 
