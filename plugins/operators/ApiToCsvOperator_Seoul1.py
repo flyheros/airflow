@@ -3,13 +3,18 @@ from airflow.hooks.base import BaseHook
 import os
 import pandas as pd
 import requests
+from airflow.models import Variable
 
 
 class ApiToCsvOperator_Seoul(BaseOperator):
     template_fields = ['path', 'file_name']
+
+    
+    
     
     def __init__(self, dataset_nm, path, file_name, apikey, base_dt=None,  **kwargs):
         super().__init__(**kwargs)
+        var_value = Variable.get("apikey_openapi_seoul_go_kr", default_var="")
         self.http_conn_id = "openapi.seoul.go.kr.http"
         self.dataset_nm = dataset_nm
         self.path = path
@@ -17,7 +22,8 @@ class ApiToCsvOperator_Seoul(BaseOperator):
         self.endpoint = apikey + '/json/' + dataset_nm
         self.base_dt = base_dt
         self.base_url = f"http://{self.endpoint}"
-        print(self.endpoint)
+        self.log.info("22222"+ self.endpoint)
+        self.log.info(f"33333: {var_value}")
 
     def execute(self, context):
         import os
