@@ -22,7 +22,7 @@ with DAG(
     ##아래가 권고안
     bash_var_2 = BashOperator(
         task_id="bash_var_2",
-        bash_command = "echo variable : {{ var.value.zone_cd | default('') }}"
+        bash_command = "echo variable : {{ var.value.apikey_openapi_seoul_go_kr | default('') }}"
     )
 
     
