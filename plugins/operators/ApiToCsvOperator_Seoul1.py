@@ -14,11 +14,16 @@ class ApiToCsvOperator_Seoul(BaseOperator):
         self.dataset_nm = dataset_nm
         self.path = path
         self.file_name = file_name
-        self.endpoint = f"openapi.seoul.go.kr:8088/6f54667168666c793339467774486b/json/{dataset_nm}"
+        self.endpoint = f"{{ var.value.apikey_openapi_seoul_go_kr }}/json/{dataset_nm}"
         self.base_dt = base_dt
         self.base_url = f"http://{self.endpoint}"
 
-    def execute(self):
+    def execute(self, context):
+        import os
+
+        connection = BaseHook.get_connection(self.http_conn_id)
+        self.base_url = f"http://{connection.host}:{connection.port}/{self.endpoint}"
+
         total_df = pd.DataFrame()
         start_row = 1
         add_row= 1000
