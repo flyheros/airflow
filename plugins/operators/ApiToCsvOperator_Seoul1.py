@@ -12,22 +12,20 @@ class ApiToCsvOperator_Seoul(BaseOperator):
     
     
     
-    def __init__(self, dataset_nm, path, file_name, apikey, base_dt=None,  **kwargs):
+    def __init__(self, dataset_nm, path, file_name,  base_dt=None,  **kwargs):
+        var_value = Variable.get("apikey_openapi_seoul_go_kr", default_var="")
         super().__init__(**kwargs)
         self.http_conn_id = "openapi.seoul.go.kr.http"
         self.dataset_nm = dataset_nm
         self.path = path
         self.file_name = file_name
-        self.endpoint = apikey + '/json/' + dataset_nm
+        self.endpoint = f'{var_value}/json/{dataset_nm}'  
         self.base_dt = base_dt
         self.base_url = f"http://{self.endpoint}"
 
     def execute(self, context):
         import os
-
-        var_value = Variable.get("apikey_openapi_seoul_go_kr", default_var="")
-        self.log.info("22222"+ self.endpoint)
-        self.log.info(f"33333: {var_value}")
+ 
         self.log.info(f"self.endpoint:{self.endpoint}")
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f"http://{connection.host}:{connection.port}/{self.endpoint}"
