@@ -25,7 +25,7 @@ class ApiToCsvOperator_Seoul(BaseOperator):
 
     def execute(self, context):
         import os
- 
+        self.log.info(f"self.path:{self.path}")
         self.log.info(f"self.endpoint:{self.endpoint}")
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f"http://{connection.host}:{connection.port}/{self.endpoint}"
@@ -82,6 +82,8 @@ class ApiToCsvOperator_Seoul(BaseOperator):
             os.makedirs(self.path)
         
         if len(df):
+            self.log.info(f"----self.path:{self.path}")
+            self.log.info(f"----self.file_name:{self.file_name}")
             output_file = os.path.join(self.path, self.file_name)
             df.to_csv(output_file, index=False, encoding="utf-8-sig")
             print(f"파일 저장 완료: {output_file}") 
