@@ -21,6 +21,7 @@ class ApiToCsvOperator_Seoul(BaseOperator):
     def execute(self, context):
         import os
 
+        self.log.info(f"self.endpoint:{self.endpoint}")
         connection = BaseHook.get_connection(self.http_conn_id)
         self.base_url = f"http://{connection.host}:{connection.port}/{self.endpoint}"
 
