@@ -6,6 +6,8 @@ import requests
 
 
 class ApiToCsvOperator_Seoul(BaseOperator):
+    template_fields = ['path', 'file_name']
+    
     def __init__(self, dataset_nm, path, file_name, base_dt=None):
         super().__init__
         self.http_conn_id = "openapi.seoul.go.kr.http"
